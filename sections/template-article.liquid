@@ -31,9 +31,7 @@
           {% for comment in article.comments %}
             {{ comment.content }} by {{ comment.author }}
           {% endfor %}
-          {% if paginate.pages > 1 %}
-            {{ paginate | default_pagination }}
-          {% endif %}
+          {% render 'pagination', pagination: paginate %}
         {% endpaginate %}
       </div>
     {% else %}

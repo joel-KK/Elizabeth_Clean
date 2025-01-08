@@ -13,6 +13,7 @@
       <p>{{ article.content | strip_html | truncatewords: 20 }}</p>
     {% endif %}
   {% endfor %}
+  {% render 'pagination', pagination: paginate %}
 {% endpaginate %}
 
 {% schema %}
