@@ -1,0 +1,13 @@
+{% case media.media_type %}
+  {% when 'image' %}
+    <img src="{{ media | image_url: width: 450 }}" alt="">
+
+  {% when 'external_video' %}
+    {% comment %} {{ media | external_video_tag }} {% endcomment %}
+
+  {% when 'video' %}
+    {{ media | video_tag: controls: true }}
+
+  {% else %}
+
+{% endcase %}

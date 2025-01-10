@@ -1,0 +1,34 @@
+{% form 'product', product %}
+  {{ product.vendor }}
+  {{ product.title }}
+  {% assign product_price = product.selected_or_first_available_variant %}
+  {{ product_price.compare_at_price }}
+  {{ product_price.price | money_without_trailing_zeros }}
+  {% unless product.has_only_default_variant %}
+    {% for option in product.options_with_values %}
+      <div>
+        <label for="{{ option.name }}">
+          {{ option.name | capitalize }}
+          <select name="{{ option.name }}" id="">
+            {% for value in option.values %}
+              <option value="{{ value }}">
+                {% if option.name == 'size' %}
+                  {{ value | upcase }}
+                {% else %}
+                  {{ value | capitalize }}
+                {% endif %}
+              </option>
+            {% endfor %}
+            <!-- Blah -->
+          </select>
+        </label>
+      </div>
+    {% endfor %}
+  {% endunless %}
+{% endform %}
+
+{% for media in product.media %}
+  {% render 'product-media', media: media %}
+{% endfor %}
+
+comm

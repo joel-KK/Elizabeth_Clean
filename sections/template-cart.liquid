@@ -1,6 +1,32 @@
 {% if cart.empty? %}
   <h1>Your cart</h1>
   <div><a href="{{ routes.all_products_collection_url }}">Continue shopping</a></div>
+  <div>
+    <form action="{{ routes.cart_url }}" method="POST" novalidate>
+      <table>
+        <thead>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Total Price</th>
+        </thead>
+        <tbody>
+          {% for item in cart.items %}
+            <tr>
+              <td>
+                <a href="{{ item.url }}">
+                  {% if item.image %}
+                    <img src="{{ item.image.src }}" alt="">
+                  {% else %}
+                    {{ '' | placeholder_svg_tag }}
+                  {% endif %}
+                </a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </form>
+  </div>
 {% else %}
   <p>no items</p>
   <div><a href="{{ routes.all_products_collection_url }}">Start shopping</a></div>
