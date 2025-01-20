@@ -1,4 +1,12 @@
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
 {% form 'product', product %}
+  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
   {{ product.vendor }}
   {{ product.title }}
   {% assign product_price = product.selected_or_first_available_variant %}
@@ -9,26 +17,58 @@
       <div>
         <label for="{{ option.name }}">
           {{ option.name | capitalize }}
-          <select name="{{ option.name }}" id="">
+          <select name="{{ option.name }}" id="" class="border border-gray-300">
             {% for value in option.values %}
-              <option value="{{ value }}">
+              <option
+                value="{{ value }}"
+                {% if option.selected_value == value %}
+                  selected
+                {% endif %}
+              >
                 {% if option.name == 'size' %}
-                  {{ value | upcase }}
+                  {{ value | escape | upcase }}
                 {% else %}
-                  {{ value | capitalize }}
+                  {{ value | escape | capitalize }}
                 {% endif %}
               </option>
             {% endfor %}
-            <!-- Blah -->
           </select>
         </label>
       </div>
     {% endfor %}
   {% endunless %}
+  <!-- Quantity -->
+  <div>
+    <label for="quantity-{{ section.id }}">Quantity</label>
+    <input
+      type="number"
+      name="quantity"
+      id="quantity-{{ section.id }}"
+      value="1"
+      min="1"
+      class="border border-gray-300"
+    >
+  </div>
+  <button type="submit" name="add">
+    {% unless product.selected_or_first_available_variant %}
+      Out of stock
+    {% else %}
+      Add to cart
+    {% endunless %}
+  </button>
 {% endform %}
+<div class="swiper">
+  <div class="swiper-wrapper">
+    {% for media in product.media %}
+      <div class="swiper-slide">
+        {% render 'product-media', media: media %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
-{% for media in product.media %}
-  {% render 'product-media', media: media %}
-{% endfor %}
-
-comm
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper');
+  });
+</script>

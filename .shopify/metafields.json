@@ -9,7 +9,38 @@
   "market": [],
   "order": [],
   "page": [],
-  "product": [],
+  "product": [
+    {
+      "key": "polyphony",
+      "namespace": "shopify",
+      "name": "Polyphony",
+      "description": "Specifies the simultaneous note capacity of a synthesizer, e.g. polyphonic, multi-timbral",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "synthesis-method",
+      "namespace": "shopify",
+      "name": "Synthesis method",
+      "description": "Specifies the method of sound synthesis in electronic instruments, such as virtual analog or modular",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    },
+    {
+      "key": "instrument-material",
+      "namespace": "shopify",
+      "name": "Instrument material",
+      "description": "Identifies the main material used in the construction of a musical instrument, like maple wood or brass",
+      "type": {
+        "name": "list.metaobject_reference",
+        "category": "REFERENCE"
+      }
+    }
+  ],
   "variant": [],
   "shop": []
 }
